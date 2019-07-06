@@ -1,0 +1,58 @@
+#--------------------#
+# CREACION DE TABLAS #
+#--------------------#
+
+# Educación
+*----------
+use comiters;
+CREATE EXTERNAL TABLE IF NOT EXISTS comiters.TablaEducacion(
+ano string COMMENT 'AÑO',
+Llave string COMMENT 'LLAVE',
+conglome string COMMENT 'CONGLOME',
+vivienda string COMMENT 'VIVIENDA',
+hogar string COMMENT 'HOGAR',
+codperso string COMMENT 'CODPERSO',
+ubigeo string COMMENT 'UBIGEO',
+Distrito string COMMENT 'DISTRITO',
+grado_de_estudio string COMMENT 'GRADO_ESTUDIO',
+carrera string COMMENT 'CARRERA',
+especialidad string COMMENT 'ESPECIALIDAD',
+edad int COMMENT 'EDAD'
+)
+COMMENT 'Tabla educacion'
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ';'
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE
+LOCATION '/comiters/datalake/DDA'
+tblproperties("skip.header.line.count" = "1");
+
+# Empleo
+*--------
+use comiters;
+CREATE EXTERNAL TABLE IF NOT EXISTS comiters.TablaEmpleo(
+ano string COMMENT 'AÑO',
+Llave string COMMENT 'LLAVE',
+conglome string COMMENT 'CONGLOME',
+vivienda string COMMENT 'VIVIENDA',
+hogar string COMMENT 'HOGAR',
+codperso string COMMENT 'CODPERSO',
+ubigeo string COMMENT 'UBIGEO',
+Distrito string COMMENT 'DISTRITO',
+genero string COMMENT 'GENERO',
+situacion_laboral string COMMENT 'SITUACIÓN_LABORAL',
+condicion_de_empleo string COMMENT 'CONDICIÓN_DE_EMPLEO',
+pago_mensual int COMMENT 'EDAD'
+)
+COMMENT 'Tabla empleo'
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ';'
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE
+LOCATION '/comiters/datalake/DDA'
+tblproperties("skip.header.line.count" = "1");
+
+# CARGANDO LAS TABLAS
+load data inpath 'comiters/datalake/RDA/educacion/1_Tabla_Educación+Llave.csv' into table comiters.TablaEducacion;
+# CARGANDO LAS TABLAS
+load data inpath 'comiters/datalake/RDA/empleo/2_Tabla_Empleo+Llave.csv' into table comiters.TablaEmpleo;
